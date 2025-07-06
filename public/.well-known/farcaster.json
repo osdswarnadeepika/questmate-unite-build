@@ -3,7 +3,7 @@
     "version": "1",
     "name": "QuestMate",
     "iconUrl": "https://questmate-unite-build.vercel.app/icon.png",
-    "homeUrl": "https://questmate-unite-build.vercel.app/",
+    "homeUrl": "https://questmate-unite-build.vercel.app",
     "subtitle": "Find your perfect Web3 teammate",
     "description": "Team up with builders, creators, and marketers. Complete onchain quests. Earn rewards. Everything starts with the right teammate.",
     "primaryCategory": "social",
@@ -11,7 +11,6 @@
     "splashBackgroundColor": "#6200EA",
     "tags": ["social", "quests"],
     "buttonTitle": "Find Teammate 🚀",
-    "tagline": "Build together, earn together",
     "ogTitle": "Find Your Web3 Crew",
     "ogDescription": "Your squad for onchain quests is just a click away."
   }
