@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@divvi/referral-sdk": "^2.2.0",
     "@hookform/resolvers": "^3.9.0",
     "@neynar/nodejs-sdk": "^3.21.0",
     "@radix-ui/react-accordion": "^1.2.0",
@@ -60,6 +61,7 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.3",
+    "viem": "^2.31.7",
     "zod": "^3.23.8"
   },
   "devDependencies": {

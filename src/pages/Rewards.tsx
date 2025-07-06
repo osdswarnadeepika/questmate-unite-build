@@ -4,9 +4,32 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Award, Gift, Star, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useEffect, useRef, useState } from "react";
+import { getReferralTag, submitReferral } from '@divvi/referral-sdk';
+import { createWalletClient, custom } from 'viem';
+import { celoAlfajores } from 'viem/chains';
 
 const Rewards = () => {
   const { toast } = useToast();
+  const [verified, setVerified] = useState(() => {
+    return localStorage.getItem('verified') === 'true';
+  });
+  const [showIframe, setShowIframe] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      // You may want to check event.origin for security
+      if (event.data && event.data.verified === true) {
+        setVerified(true);
+        localStorage.setItem('verified', 'true');
+        setShowIframe(false);
+        toast({ title: 'Identity verified!' });
+      }
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  }, [toast]);
 
   const handleMintCredential = () => {
     toast({
@@ -70,13 +93,33 @@ const Rewards = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button 
-                onClick={handleMintCredential}
-                className="w-full bg-purple-600 hover:bg-purple-700"
-              >
-                <Award className="h-4 w-4 mr-2" />
-                Mint Credential
-              </Button>
+              {!verified && (
+                <Button 
+                  onClick={() => setShowIframe(true)}
+                  className="w-full bg-blue-600 hover:bg-blue-700 mb-4"
+                >
+                  Verify Identity
+                </Button>
+              )}
+              {showIframe && (
+                <div className="mb-4">
+                  <iframe
+                    ref={iframeRef}
+                    src="https://verify.divvi.xyz"
+                    title="Identity Verification"
+                    style={{ width: '100%', height: 500, border: '1px solid #ccc', borderRadius: 8 }}
+                  />
+                </div>
+              )}
+              {verified && (
+                <Button 
+                  onClick={handleMintCredential}
+                  className="w-full bg-purple-600 hover:bg-purple-700"
+                >
+                  <Award className="h-4 w-4 mr-2" />
+                  Mint Credential
+                </Button>
+              )}
             </CardContent>
           </Card>
 
