@@ -17,7 +17,7 @@
   ],
   "rewrites": [
     {
-      "source": "/rewards",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
