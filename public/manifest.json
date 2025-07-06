@@ -1,0 +1,11 @@
+{
+  "name": "QuestMate Unite",
+  "description": "Farcaster Mini App for claiming builder rewards and credentials",
+  "website": "https://questmate-unite-build.vercel.app",
+  "redirect_uris": ["https://questmate-unite-build.vercel.app/rewards"],
+  "app_url": "https://questmate-unite-build.vercel.app/rewards",
+  "frame_url": "https://questmate-unite-build.vercel.app/rewards",
+  "icon_url": "https://questmate-unite-build.vercel.app/favicon.ico",
+  "categories": ["social", "productivity", "blockchain"],
+  "tags": ["farcaster", "rewards", "builders", "hackathon", "team-matching"]
+} 

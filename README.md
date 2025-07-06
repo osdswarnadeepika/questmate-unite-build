@@ -1,73 +1,58 @@
-# Welcome to your Lovable project
+# QuestMate Unite
 
-## Project info
+A web application for connecting builders, designers, and creators for hackathons and collaborative projects.
 
-**URL**: https://lovable.dev/projects/8f0b6047-3e99-4efa-8225-5aa2096f0e9b
+## Features
 
-## How can I edit this code?
+- **Team Matching**: Connect with like-minded builders and creators
+- **Self Protocol Integration**: Verifiable identity verification using passport scanning
+- **Celo Blockchain Integration**: Smart contract interactions on Alfajores testnet
+- **Farcaster Mini App**: Frame-compatible rewards system
 
-There are several ways of editing your application.
+## Farcaster Frame Setup
 
-**Use Lovable**
+This application includes a Farcaster Frame for claiming rewards. The frame is accessible at `/rewards` and includes:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8f0b6047-3e99-4efa-8225-5aa2096f0e9b) and start prompting.
+### Required Environment Variables
 
-Changes made via Lovable will be committed automatically to this repo.
+Create a `.env` file in the root directory with:
 
-**Use your preferred IDE**
+```bash
+# Neynar API Key for Farcaster Frame validation
+NEYNAR_API_KEY=your_neynar_api_key_here
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+# Other existing variables...
+VITE_NEYNAR_API_KEY=your_neynar_api_key_here
+VITE_NEYNAR_CLIENT_ID=your_neynar_client_id_here
+VITE_NEYNAR_SIGNER_UUID=your_neynar_signer_uuid_here
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Frame Endpoints
 
-Follow these steps:
+- **Frame URL**: `https://questmate-unite-build.vercel.app/rewards`
+- **Frame Handler**: `/api/frame-handler`
+- **Preview Image**: `/preview.svg`
+- **Success Image**: `/success.svg`
+- **Error Image**: `/error.svg`
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Frame Features
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- ✅ Validates incoming frame requests using Neynar SDK
+- ✅ Logs user FID for analytics
+- ✅ Returns success/error responses with appropriate images
+- ✅ Compatible with Warpcast and other Farcaster clients
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Development
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The application is configured for deployment on Vercel. The Farcaster Frame will be automatically available at the deployed URL.
 
-**Use GitHub Codespaces**
+## License
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/8f0b6047-3e99-4efa-8225-5aa2096f0e9b) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT

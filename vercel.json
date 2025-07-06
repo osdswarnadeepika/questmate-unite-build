@@ -1,0 +1,24 @@
+{
+  "headers": [
+    {
+      "source": "/rewards",
+      "headers": [
+        { "key": "Content-Type", "value": "text/html" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    },
+    {
+      "source": "/api/frame-handler",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/rewards",
+      "destination": "/index.html"
+    }
+  ]
+} 
