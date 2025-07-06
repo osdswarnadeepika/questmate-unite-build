@@ -1,0 +1,13 @@
+{
+  "frame": {
+    "version": "1",
+    "name": "My Mini App",
+    "iconUrl": "https://yourdomain.com/logo.png",
+    "homeUrl": "https://yourdomain.com/",
+    "imageUrl": "https://yourdomain.com/preview.png",
+    "buttonTitle": "Launch 🚀",
+    "splashImageUrl": "https://yourdomain.com/splash.png",
+    "splashBackgroundColor": "#ffffff",
+    "webhookUrl": "https://yourdomain.com/api/webhook"
+  }
+} 
