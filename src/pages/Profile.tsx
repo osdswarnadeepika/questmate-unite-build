@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const [name, setName] = useState("");
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [skills, setSkills] = useState("");
   const [lookingFor, setLookingFor] = useState("");
@@ -23,6 +24,8 @@ const Profile = () => {
     { id: "developer", label: "💻 Developer", emoji: "💻" },
     { id: "designer", label: "🎨 Designer", emoji: "🎨" },
     { id: "marketer", label: "📣 Marketer", emoji: "📣" },
+    { id: "strategist", label: "🧠 Strategist", emoji: "🧠" },
+    { id: "builder", label: "🛠️ Builder", emoji: "🛠️" },
   ];
 
   const toggleRole = (roleId: string) => {
@@ -37,6 +40,14 @@ const Profile = () => {
     e.preventDefault();
     
     // Basic validation
+    if (!name.trim()) {
+      toast({
+        title: "Please enter your name",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (selectedRoles.length === 0) {
       toast({
         title: "Please select at least one role",
@@ -63,6 +74,7 @@ const Profile = () => {
 
     // Save profile (in real app, this would go to backend)
     console.log("Profile saved:", {
+      name,
       roles: selectedRoles,
       skills,
       lookingFor,
@@ -72,37 +84,49 @@ const Profile = () => {
 
     toast({
       title: "Profile saved successfully! 🎉",
-      description: "You can now find teammates on the matchmaker page.",
+      description: "You can now find teammates and join quests.",
     });
 
-    // Navigate to match page after successful save
+    // Navigate to quests page after successful save
     setTimeout(() => {
-      navigate("/match");
+      navigate("/quests");
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20 pb-12 transition-colors duration-300">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Set up your profile</h1>
-          <p className="text-gray-600">Tell us about yourself so we can find you the perfect teammates</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Set up your profile</h1>
+          <p className="text-gray-600 dark:text-gray-400">Tell us about yourself so we can find you the perfect teammates</p>
         </div>
 
-        <Card className="shadow-lg">
+        <Card className="shadow-lg dark:bg-gray-800 dark:border-gray-700">
           <CardHeader>
-            <CardTitle>Your Builder Profile</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-gray-900 dark:text-white">Your Builder Profile</CardTitle>
+            <CardDescription className="dark:text-gray-400">
               Fill out your information to start connecting with other builders
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name */}
+              <div>
+                <Label htmlFor="name" className="text-base font-medium text-gray-900 dark:text-white">Name *</Label>
+                <Input
+                  id="name"
+                  placeholder="e.g. Alice Johnson"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                />
+              </div>
+
               {/* Role Selection */}
               <div>
-                <Label className="text-base font-medium">Role *</Label>
-                <p className="text-sm text-gray-500 mb-3">Select all that apply</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <Label className="text-base font-medium text-gray-900 dark:text-white">Roles *</Label>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">Select all that apply</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {roles.map((role) => (
                     <button
                       key={role.id}
@@ -110,8 +134,8 @@ const Profile = () => {
                       onClick={() => toggleRole(role.id)}
                       className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                         selectedRoles.includes(role.id)
-                          ? "border-purple-500 bg-purple-50 text-purple-700"
-                          : "border-gray-200 bg-white hover:border-gray-300"
+                          ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400"
+                          : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300"
                       }`}
                     >
                       <div className="text-2xl mb-1">{role.emoji}</div>
@@ -123,53 +147,53 @@ const Profile = () => {
 
               {/* Skills */}
               <div>
-                <Label htmlFor="skills" className="text-base font-medium">Skills *</Label>
-                <p className="text-sm text-gray-500 mb-2">What technologies, tools, or expertise do you bring?</p>
+                <Label htmlFor="skills" className="text-base font-medium text-gray-900 dark:text-white">Skills *</Label>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">What technologies, tools, or expertise do you bring?</p>
                 <Textarea
                   id="skills"
                   placeholder="e.g. React, Node.js, UI/UX Design, Growth Marketing, Python, Figma..."
                   value={skills}
                   onChange={(e) => setSkills(e.target.value)}
-                  className="min-h-[100px]"
+                  className="min-h-[100px] dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
               </div>
 
               {/* Looking For */}
               <div>
-                <Label className="text-base font-medium">Looking For *</Label>
-                <p className="text-sm text-gray-500 mb-2">What type of collaboration interests you?</p>
+                <Label className="text-base font-medium text-gray-900 dark:text-white">Looking For *</Label>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">What type of collaboration interests you?</p>
                 <Select onValueChange={setLookingFor}>
-                  <SelectTrigger>
+                  <SelectTrigger className="dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <SelectValue placeholder="Select what you're looking for" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="quests">🎯 Quests</SelectItem>
-                    <SelectItem value="hackathons">⚡ Hackathons</SelectItem>
-                    <SelectItem value="side-projects">🚀 Side Projects</SelectItem>
-                    <SelectItem value="all">🌟 All of the above</SelectItem>
+                  <SelectContent className="dark:bg-gray-800 dark:border-gray-600">
+                    <SelectItem value="quests" className="dark:text-white dark:hover:bg-gray-700">🎯 Quests</SelectItem>
+                    <SelectItem value="hackathons" className="dark:text-white dark:hover:bg-gray-700">⚡ Hackathons</SelectItem>
+                    <SelectItem value="side-projects" className="dark:text-white dark:hover:bg-gray-700">🚀 Side Projects</SelectItem>
+                    <SelectItem value="all" className="dark:text-white dark:hover:bg-gray-700">🌟 All of the above</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               {/* Portfolio Links */}
               <div>
-                <Label htmlFor="portfolio" className="text-base font-medium">🛠️ Proof of Work / Portfolio (optional)</Label>
-                <p className="text-sm text-gray-500 mb-2">Share links to your work, GitHub, portfolio, or social profiles</p>
+                <Label htmlFor="portfolio" className="text-base font-medium text-gray-900 dark:text-white">🛠️ Proof of Work / Portfolio (optional)</Label>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Share links to your work, GitHub, portfolio, or social profiles</p>
                 <Textarea
                   id="portfolio"
                   placeholder="e.g. https://github.com/yourname/project&#10;https://linktr.ee/yourprofile&#10;https://yourportfolio.com"
                   value={portfolioLinks}
                   onChange={(e) => setPortfolioLinks(e.target.value)}
-                  className="min-h-[80px]"
+                  className="min-h-[80px] dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
                 <p className="text-xs text-gray-400 mt-1">Separate multiple links with new lines</p>
               </div>
 
               {/* Availability */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                 <div>
-                  <Label htmlFor="availability" className="text-base font-medium">Available for projects</Label>
-                  <p className="text-sm text-gray-500">Let others know if you're currently available</p>
+                  <Label htmlFor="availability" className="text-base font-medium text-gray-900 dark:text-white">Available for projects</Label>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Let others know if you're currently available</p>
                 </div>
                 <Switch
                   id="availability"
