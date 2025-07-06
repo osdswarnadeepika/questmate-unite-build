@@ -15,6 +15,7 @@ import SelectProject from "./pages/SelectProject";
 import Submit from "./pages/Submit";
 import Rewards from "./pages/Rewards";
 import NotFound from "./pages/NotFound";
+import Verify from "./pages/Verify";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
               <Route path="/select-project" element={<SelectProject />} />
               <Route path="/submit" element={<Submit />} />
               <Route path="/rewards" element={<Rewards />} />
+              <Route path="/verify" element={<Verify />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

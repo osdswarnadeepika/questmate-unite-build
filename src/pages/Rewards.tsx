@@ -8,28 +8,42 @@ import { useEffect, useRef, useState } from "react";
 import { getReferralTag, submitReferral } from '@divvi/referral-sdk';
 import { createWalletClient, custom } from 'viem';
 import { celoAlfajores } from 'viem/chains';
+import { SelfQRcodeWrapper, SelfAppBuilder } from '@selfxyz/qrcode';
+import { v4 as uuidv4 } from 'uuid';
 
 const Rewards = () => {
   const { toast } = useToast();
-  const [verified, setVerified] = useState(() => {
-    return localStorage.getItem('verified') === 'true';
+  const [selfVerified, setSelfVerified] = useState(() => {
+    return localStorage.getItem('self_verified') === 'true';
   });
-  const [showIframe, setShowIframe] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [showQR, setShowQR] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [selfApp, setSelfApp] = useState<any>(null);
 
   useEffect(() => {
-    const handler = (event: MessageEvent) => {
-      // You may want to check event.origin for security
-      if (event.data && event.data.verified === true) {
-        setVerified(true);
-        localStorage.setItem('verified', 'true');
-        setShowIframe(false);
-        toast({ title: 'Identity verified!' });
-      }
-    };
-    window.addEventListener('message', handler);
-    return () => window.removeEventListener('message', handler);
-  }, [toast]);
+    if (showQR && !userId) {
+      setUserId(uuidv4());
+    }
+  }, [showQR, userId]);
+
+  useEffect(() => {
+    if (userId) {
+      const app = new SelfAppBuilder({
+        appName: 'QuestMate',
+        scope: 'questmate-app',
+        endpoint: 'https://9530-2401-4900-8826-df5-2497-1bfa-7723-4c65.ngrok-free.app/api/verify',
+        userId,
+        disclosures: {
+          minimumAge: 13,
+          nationality: true,
+          name: true,
+          date_of_birth: true,
+          ofac: true
+        },
+      }).build();
+      setSelfApp(app);
+    }
+  }, [userId]);
 
   const handleMintCredential = () => {
     toast({
@@ -93,26 +107,31 @@ const Rewards = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {!verified && (
-                <Button 
-                  onClick={() => setShowIframe(true)}
+              {!selfVerified && !showQR && (
+                <Button
+                  onClick={() => setShowQR(true)}
                   className="w-full bg-blue-600 hover:bg-blue-700 mb-4"
                 >
                   Verify Identity
                 </Button>
               )}
-              {showIframe && (
+              {showQR && !selfVerified && selfApp && (
                 <div className="mb-4">
-                  <iframe
-                    ref={iframeRef}
-                    src="https://verify.divvi.xyz"
-                    title="Identity Verification"
-                    style={{ width: '100%', height: 500, border: '1px solid #ccc', borderRadius: 8 }}
+                  <SelfQRcodeWrapper
+                    selfApp={selfApp}
+                    onSuccess={() => {
+                      localStorage.setItem('self_verified', 'true');
+                      setSelfVerified(true);
+                      setShowQR(false);
+                      toast({ title: '✅ Self Verification Successful' });
+                    }}
+                    onError={() => {}}
+                    size={350}
                   />
                 </div>
               )}
-              {verified && (
-                <Button 
+              {selfVerified && (
+                <Button
                   onClick={handleMintCredential}
                   className="w-full bg-purple-600 hover:bg-purple-700"
                 >
