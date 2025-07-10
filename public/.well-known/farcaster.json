@@ -1,17 +1,23 @@
 {
-  "miniapp": {
-    "version": "1",
+  "frame": {
     "name": "QuestMate",
-    "iconUrl": "https://questmate-unite-build.vercel.app/icon.png",
-    "homeUrl": "https://questmate-unite-build.vercel.app",
-    "subtitle": "Find your perfect Web3 teammate",
+    "version": "1",
+    "iconUrl": "https://i.postimg.cc/rw5wVCtf/Quest-Mate-logo.png",
+    "homeUrl": "https://questmate-unite-build.vercel.app/",
+    "splashImageUrl": "https://i.postimg.cc/NjGDqJX8/App-Loading-Symbol-with-Rocket-and-Shadow-Effect.png",
+    "splashBackgroundColor": "#6200EA",
     "description": "Team up with builders, creators, and marketers. Complete onchain quests. Earn rewards. Everything starts with the right teammate.",
     "primaryCategory": "social",
-    "splashImageUrl": "https://raw.githubusercontent.com/deepikav4/assets/main/farcaster/splash-default.png",
-    "splashBackgroundColor": "#6200EA",
+    "subtitle": "Find your perfect Web3 teammate",
     "tags": ["social", "quests"],
     "buttonTitle": "Find Teammate 🚀",
     "ogTitle": "Find Your Web3 Crew",
     "ogDescription": "Your squad for onchain quests is just a click away."
+  },
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEwOTgxOTUsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhiQmFjNUVFNDFhN2UzRjZlODRkOEE5M0VEN2U4OTg5QTdmZUViZkE1In0",
+    "payload": "eyJkb21haW4iOiJxdWVzdG1hdGUtdW5pdGUtYnVpbGQudmVyY2VsLmFwcCJ9",
+    "signature": "MHhlZTllMDYyY2JlZjVmZjUwODhhNGZmMDI4NWJlYjYxN2FkZjllZjU1ODQ0MjM4Nzk4OWM2NDk5ODUyOWMyNTQ2MjE0YWYzN2ViOTAzNTA4OThmNmE5MDMwZjEzNzljMjE5OWJkNjdlMmZmNWUxOGI2ZWU5Nzg4NDIxNTNhYmE4ZDFi"
   }
 }
+
